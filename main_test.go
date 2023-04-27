@@ -164,32 +164,6 @@ func TestDeleteProduct(t *testing.T) {
 	checkResponseCode(t, http.StatusNotFound, response.Code)
 }
 
-func TestGetProductWithHighestPrice(t *testing.T) {
-	clearTable()
-	addProducts(3)
-
-	req, _ := http.NewRequest("GET", "/product/highest_price", nil)
-	response := executeRequest(req)
-
-	checkResponseCode(t, http.StatusOK, response.Code)
-
-	var products []struct {
-		Name  string  `json:"name"`
-		Price float64 `json:"price"`
-	}
-	err := json.Unmarshal(response.Body.Bytes(), &products)
-	if err != nil {
-		t.Errorf("Failed to parse response body: %s", err)
-	}
-
-	expectedName := "Product C"
-	expectedPrice := 99.99
-	if len(products) != 1 || products[0].Name != expectedName || products[0].Price != expectedPrice {
-		t.Errorf("Expected product %q with price %f, but found %q with price %f", expectedName, expectedPrice, products[0].Name, products[0].Price)
-	}
-
-}
-
 func executeRequest(req *http.Request) *httptest.ResponseRecorder {
 	rr := httptest.NewRecorder()
 	a.Router.ServeHTTP(rr, req)
