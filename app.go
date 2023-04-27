@@ -93,8 +93,8 @@ func (a *App) getProducts(w http.ResponseWriter, r *http.Request) {
 
 func (a *App) getProductWithHighestPrice(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	
-	id, err := strconv.Atoi(vars["id"])
+
+	_, err := strconv.Atoi(vars["id"])
 	if err != nil {
 		if err == sql.ErrNoRows {
 			http.Error(w, "No products found", http.StatusNotFound)
@@ -106,7 +106,7 @@ func (a *App) getProductWithHighestPrice(w http.ResponseWriter, r *http.Request)
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(product)
+	// json.NewEncoder(w).Encode(product)
 }
 
 func (a *App) createProduct(w http.ResponseWriter, r *http.Request) {
