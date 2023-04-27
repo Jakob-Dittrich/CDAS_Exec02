@@ -9,3 +9,5 @@ should be
 ```go
 package main
 ```
+
+[![Go](https://github.com/JakodDittrich/CDAS_Exec02/actions/workflows/go.yml/badge.svg)](https://github.com/JakodDittrich/CDAS_Exec02/actions/workflows/go.yml)
